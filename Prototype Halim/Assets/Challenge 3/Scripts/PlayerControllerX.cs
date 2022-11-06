@@ -7,7 +7,7 @@ public class PlayerControllerX : MonoBehaviour
     public bool gameOver;
 
     public float floatForce;
-    private float gravityModifier = 1.5f;
+    private float gravityModifier = 1.0f;
     private Rigidbody playerRb;
 
     public ParticleSystem explosionParticle;
@@ -59,6 +59,24 @@ public class PlayerControllerX : MonoBehaviour
             playerAudio.PlayOneShot(moneySound, 1.0f);
             Destroy(other.gameObject);
 
+        }
+        else if (other.gameObject.CompareTag("Ground"))
+        {
+            //fireworksParticle.Play();
+            //playerAudio.PlayOneShot(explodeSound, 1.0f);
+            // gameOver = true;
+            // Debug.Log("Game Over");
+            if (!gameOver)
+            {
+                playerRb.AddForce(Vector3.up * floatForce, ForceMode.Impulse);
+            }
+        }
+        else if (other.gameObject.CompareTag("upperGround"))
+        {
+           if (!gameOver)
+            {
+                playerRb.AddForce(Vector3.down * floatForce, ForceMode.Impulse);
+            }
         }
 
     }
